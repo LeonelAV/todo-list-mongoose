@@ -1,0 +1,42 @@
+extends layout.pug
+
+block content
+  .wall
+    .menu
+      ul.nav.nav-pills
+        li
+          a(href='/') Home
+        li.active
+          a(href='/tasks') Todo List
+        li
+          a(href="") Completed
+    h1= title
+
+    .list
+      .item.add-task
+        div.action
+          form(action='/tasks', method='post')
+            //- input(type='hidden', value='true', name='all_done')
+            input(type='submit', class='btn btn-success btn-xs', value='all done')
+        form(action='/tasks', method='post')
+          div.name
+            input(class="placetask" name='title' type='text', placeholder='Add a new task')
+          div.delete
+            input.btn.btn-primary.btn-sm(type="submit", value='Add a task')
+      if (tasks.length === 0)
+        | No tasks.
+    hr
+    ul#sortable.list-unstyled.list-group.list-users    
+      each task in tasks
+        li.list-group-item
+          .content
+            p #{task.title}&nbsp;
+            form.edit-form(action=`/tasks/${task.id}`)
+              input.input-lg.hidden(name='edited-name', value=task.title)
+          p Created at: #{moment(task.createdAt).format('YYYY/MM/DD HH:mm')}
+          input(type='submit', class='btninside btn btn-success btn-xs', value="done")
+          .edition
+            a.btn.btn-primary.edit
+              i.glyphicon.glyphicon-edit
+            a.btn.btn-danger.remove(href=`/tasks/${task.id}`)
+              i.glyphicon.glyphicon-remove
