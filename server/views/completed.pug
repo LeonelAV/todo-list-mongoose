@@ -1,11 +1,14 @@
- ul#sortable.list-unstyled.list-group.list-users    
+extends layout.pug
+
+block content
+  ul#sortable.list-unstyled.list-group.list-users.list-completed    
       each task in tasks
         li.list-group-item
           .content
             p #{task.title}&nbsp;
             form.edit-form(action=`/tasks/${task.id}`)
               input.input-lg.hidden(name='edited-name', value=task.title)
-          p Created at: #{moment(task.createdAt).format('YYYY/MM/DD HH:mm')}
+          p Completed at: #{moment(task.modifiedAt).format('YYYY/MM/DD HH:mm')}
           input(type='submit', class='btninside btn btn-success btn-xs', value="done")
           .edition
             a.btn.btn-primary.edit

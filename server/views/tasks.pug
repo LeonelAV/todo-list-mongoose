@@ -34,7 +34,7 @@ block content
             form.edit-form(action=`/tasks/${task.id}`)
               input.input-lg.hidden(name='edited-name', value=task.title)
           p Created at: #{moment(task.createdAt).format('YYYY/MM/DD HH:mm')}
-          input(type='submit', class='btninside btn btn-success btn-xs', value="done")
+          input(href=`/tasks/${task.id}`, type='submit', class='btninside btn btn-success btn-xs', value="done")
           .edition
             a.btn.btn-primary.edit
               i.glyphicon.glyphicon-edit
